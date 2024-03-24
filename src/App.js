@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import FormSize from './components/FormSize/FormSize';
+import SizeBlock from './components/SizeBlock/SizeBlock';
 
 function App() {
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0
+  });
+
+  const inputSize = e => {
+    const {name, value} = e.target;
+    setSize({...size, [name]: value});
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FormSize
+        size={size}
+        onInput={inputSize}
+      />
+      <SizeBlock
+        width={size.width}
+        height={size.height}
+      />
     </div>
   );
 }
